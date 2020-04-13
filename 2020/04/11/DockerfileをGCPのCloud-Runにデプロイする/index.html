@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Dockerfile を GCP の Cloud Run にデプロイする | コードを舐める日々</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="はじめにDockerfile を作って Google Cloud Run にデプロイする手順のメモ。今まで、Docker を使ってコンテナを作っておけば、基本どの環境でもアプリを立ち上げられる。Mac で作ったアプリを、 Windows または Ubuntu 上で動かすにしても、必要なプログラミング言語やデータベース、ライブラリ等の導入が先に必要で、そこで行き詰まったりする。OS が異なると、アプ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile を GCP の Cloud Run にデプロイする">
+<meta property="og:url" content="https://makotoworld.github.io/makotoworld.github.io/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/index.html">
+<meta property="og:site_name" content="コードを舐める日々">
+<meta property="og:description" content="はじめにDockerfile を作って Google Cloud Run にデプロイする手順のメモ。今まで、Docker を使ってコンテナを作っておけば、基本どの環境でもアプリを立ち上げられる。Mac で作ったアプリを、 Windows または Ubuntu 上で動かすにしても、必要なプログラミング言語やデータベース、ライブラリ等の導入が先に必要で、そこで行き詰まったりする。OS が異なると、アプ">
+<meta property="article:published_time" content="2020-04-11T13:05:37.000Z">
+<meta property="article:modified_time" content="2020-04-13T14:19:55.625Z">
+<meta property="article:author" content="Makoto Nozaki">
+<meta property="article:tag" content="GCP">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/makotoworld.github.io/atom.xml" title="コードを舐める日々" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/makotoworld.github.io/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/makotoworld.github.io/" id="logo">コードを舐める日々</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/makotoworld.github.io/" id="subtitle">わからないことがわからないことをしる日々</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/makotoworld.github.io/">Home</a>
+        
+          <a class="main-nav-link" href="/makotoworld.github.io/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/makotoworld.github.io/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://makotoworld.github.io/makotoworld.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DockerfileをGCPのCloud-Runにデプロイする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/makotoworld.github.io/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2020-04-11T13:05:37.000Z" itemprop="datePublished">2020-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dockerfile を GCP の Cloud Run にデプロイする
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h1><p>Dockerfile を作って Google Cloud Run にデプロイする手順のメモ。<br>今まで、Docker を使ってコンテナを作っておけば、基本どの環境でもアプリを立ち上げられる。<br>Mac で作ったアプリを、 Windows または Ubuntu 上で動かすにしても、必要なプログラミング言語やデータベース、ライブラリ等の導入が先に必要で、そこで行き詰まったりする。<br>OS が異なると、アプリを動かすために必要なソフトウェア類の導入も一筋縄でいかないケースが多い。<br>それが Dockerfile にアプリを動かす前提条件を書いておけば、その通りに事前に導入してくれるので楽。<br>ここの例は Python のフレームワークである、 Flask を例にして最終的に Cloud Run にデプロイするまでの流れをまとめたい。</p>
+<h1 id="Flask-アプリと-Dockerfile-を書く"><a href="#Flask-アプリと-Dockerfile-を書く" class="headerlink" title="Flask アプリと Dockerfile を書く"></a>Flask アプリと Dockerfile を書く</h1><h2 id="Flask-app-py"><a href="#Flask-app-py" class="headerlink" title="Flask(app.py)"></a>Flask(app.py)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from flask import Flask</span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;&#39;)</span><br><span class="line">def hello():</span><br><span class="line">    return &quot;Hello, Flask!&quot;</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;docker&#39;)</span><br><span class="line">def hello2():</span><br><span class="line">    return &quot;Hello, Docker!&quot;</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">##PythonのDockerイメージを指定</span><br><span class="line">FROM python</span><br><span class="line"></span><br><span class="line"># Copy local code to the container image.</span><br><span class="line">ENV APP_HOME &#x2F;app</span><br><span class="line">WORKDIR $APP_HOME</span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line">#ライブラリインストール</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#コマンド実行</span><br><span class="line">CMD python app.py</span><br></pre></td></tr></table></figure>
+
+<h1 id="ローカル-Docker-でビルドしてみる"><a href="#ローカル-Docker-でビルドしてみる" class="headerlink" title="ローカル Docker でビルドしてみる"></a>ローカル Docker でビルドしてみる</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker build -t hello_flask .</span><br></pre></td></tr></table></figure>
+<p>最後の「.」を忘れずに（これはDockerfileパスの指定）</p>
+<h2 id="出力結果"><a href="#出力結果" class="headerlink" title="出力結果"></a>出力結果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Sending build context to Docker daemon  3.584kB</span><br><span class="line">Step 1&#x2F;6 : FROM python</span><br><span class="line"> ---&gt; f88b2f81f83a</span><br><span class="line">Step 2&#x2F;6 : ENV APP_HOME &#x2F;app</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; e653346a0ee5</span><br><span class="line">Step 3&#x2F;6 : WORKDIR $APP_HOME</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 4bd2068dd7c1</span><br><span class="line">Step 4&#x2F;6 : COPY . .</span><br><span class="line"> ---&gt; 7904c315ded5</span><br><span class="line">Step 5&#x2F;6 : RUN pip install flask</span><br><span class="line"> ---&gt; Running in 4430fd9333bf</span><br><span class="line">Collecting flask</span><br><span class="line">  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)</span><br><span class="line">Collecting itsdangerous&gt;&#x3D;0.24</span><br><span class="line">  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)</span><br><span class="line">Collecting Jinja2&gt;&#x3D;2.10.1</span><br><span class="line">  Downloading Jinja2-2.11.1-py2.py3-none-any.whl (126 kB)</span><br><span class="line">Collecting Werkzeug&gt;&#x3D;0.15</span><br><span class="line">  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)</span><br><span class="line">Collecting click&gt;&#x3D;5.1</span><br><span class="line">  Downloading click-7.1.1-py2.py3-none-any.whl (82 kB)</span><br><span class="line">Collecting MarkupSafe&gt;&#x3D;0.23</span><br><span class="line">  Downloading MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl (32 kB)</span><br><span class="line">Installing collected packages: itsdangerous, MarkupSafe, Jinja2, Werkzeug, click, flask</span><br><span class="line">Successfully installed Jinja2-2.11.1 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.1 flask-1.1.2 itsdangerous-1.1.0</span><br><span class="line">Removing intermediate container 4430fd9333bf</span><br><span class="line"> ---&gt; 50b8d018f549</span><br><span class="line">Step 6&#x2F;6 : CMD python app.py</span><br><span class="line"> ---&gt; Running in b05753ebc70f</span><br><span class="line">Removing intermediate container b05753ebc70f</span><br><span class="line"> ---&gt; 3399d6d70f76</span><br><span class="line">Successfully built 3399d6d70f76</span><br><span class="line">Successfully tagged hello_flask:latest</span><br></pre></td></tr></table></figure>
+
+<h1 id="作成したイメージをもとにコンテナを立ち上げ"><a href="#作成したイメージをもとにコンテナを立ち上げ" class="headerlink" title="作成したイメージをもとにコンテナを立ち上げ"></a>作成したイメージをもとにコンテナを立ち上げ</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 5000:5000 hello_flask</span><br><span class="line"> * Serving Flask app &quot;app&quot; (lazy loading)</span><br><span class="line"> * Environment: production</span><br><span class="line">   WARNING: This is a development server. Do not use it in a production deployment.</span><br><span class="line">   Use a production WSGI server instead.</span><br><span class="line"> * Debug mode: on</span><br><span class="line"> * Running on http:&#x2F;&#x2F;0.0.0.0:5000&#x2F; (Press CTRL+C to quit)</span><br><span class="line"> * Restarting with stat</span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 138-899-674</span><br><span class="line">172.17.0.1 - - [13&#x2F;Apr&#x2F;2020 14:04:43] &quot;GET &#x2F; HTTP&#x2F;1.1&quot; 200 -</span><br><span class="line">172.17.0.1 - - [13&#x2F;Apr&#x2F;2020 14:04:51] &quot;GET &#x2F;docker HTTP&#x2F;1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
+<p>こんな感じで立ち上げ、<a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> にアクセスすると、「Hello, Flask!」と表示できるのを確認できます。<br>ローカルPCのDockerで動作確認ができたら、GCPのContainer Registryにイメージをアップしてみます。</p>
+<h1 id="Container-Registry-へ-Docker-コンテナをビルド"><a href="#Container-Registry-へ-Docker-コンテナをビルド" class="headerlink" title="Container Registry へ Docker コンテナをビルド"></a>Container Registry へ Docker コンテナをビルド</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; gcloud builds submit --tag gcr.io&#x2F;[PROJECT_ID]&#x2F;[IMAGE_NAME]</span><br></pre></td></tr></table></figure>
+
+<h1 id="Cloud-Run-へデプロイ"><a href="#Cloud-Run-へデプロイ" class="headerlink" title="Cloud Run へデプロイ"></a>Cloud Run へデプロイ</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; gcloud beta run deploy --image gcr.io&#x2F;[PROJECT_ID]&#x2F;[IMAGE_NAME]</span><br></pre></td></tr></table></figure>
+<p>下記のように、引数指定で入れておくと、対話せずそのままデプロイまでいけます。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta run services update picturewordcloud \</span><br><span class="line">--add-cloudsql-instances [PROJECT_ID]:asia-northeast2:[dbname] \</span><br><span class="line">--set-env-vars CLOUD_SQL_CONNECTION_NAME&#x3D;[PROJECT_ID]:asia-northeast2:[dbname],\</span><br><span class="line">DB_USER&#x3D;postgres,DB_PASS&#x3D;password,DB_NAME&#x3D;dbname \</span><br><span class="line">--platform&#x3D;managed \</span><br><span class="line">--region&#x3D;[REGION]</span><br></pre></td></tr></table></figure>
+<p>詳細はGCPのマニュアルを参照。</p>
+<ul>
+<li><a href="https://cloud.google.com/sdk/gcloud/reference/beta/run" target="_blank" rel="noopener">gcloud beta run  |  Cloud SDK のドキュメント  |  Google Cloud</a></li>
+<li><a href="https://www.apps-gcp.com/cloud-run-full-managed-basic-1/" target="_blank" rel="noopener">サーバーレスをコンテナで！Cloud Runで必ず抑えておきたい5つのことを検証してみた〜フルマネージド基礎編① | apps-gcp.com</a><br>これでCloud Run上でアプリが稼働できるようになります。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://makotoworld.github.io/makotoworld.github.io/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/" data-id="ck8utt1xt0000ouabbxtba53h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/makotoworld.github.io/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/makotoworld.github.io/tags/GCP/" rel="tag">GCP</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/makotoworld.github.io/2020/04/13/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%81%AEUN-LIMIT%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%A6%E3%81%BF%E3%81%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          楽天モバイルのUN-LIMITに乗り換えてみた
+        
+      </div>
+    </a>
+  
+  
+    <a href="/makotoworld.github.io/2020/04/04/2020%E5%B9%B4%E6%98%A5%E3%81%8B%E3%82%89%E5%B8%9D%E4%BA%AC%E5%A4%A7%E5%AD%A6%E9%80%9A%E4%BF%A1%E6%95%99%E8%82%B2%E8%AA%B2%E7%A8%8B%E3%82%92%E5%A7%8B%E3%82%81%E3%81%BE%E3%81%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2020年春から帝京大学通信教育課程を始めます</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/Competitive-programming/" rel="tag">Competitive programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/GCP/" rel="tag">GCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/atcoder/" rel="tag">atcoder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/exiftool/" rel="tag">exiftool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/idea/" rel="tag">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/my/" rel="tag">my</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/photo/" rel="tag">photo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/raspberrypi/" rel="tag">raspberrypi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/makotoworld.github.io/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" rel="tag">楽天モバイル</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/makotoworld.github.io/tags/CS/" style="font-size: 10px;">CS</a> <a href="/makotoworld.github.io/tags/Competitive-programming/" style="font-size: 10px;">Competitive programming</a> <a href="/makotoworld.github.io/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/makotoworld.github.io/tags/GCP/" style="font-size: 10px;">GCP</a> <a href="/makotoworld.github.io/tags/atcoder/" style="font-size: 10px;">atcoder</a> <a href="/makotoworld.github.io/tags/c/" style="font-size: 10px;">c++</a> <a href="/makotoworld.github.io/tags/exiftool/" style="font-size: 10px;">exiftool</a> <a href="/makotoworld.github.io/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/makotoworld.github.io/tags/idea/" style="font-size: 10px;">idea</a> <a href="/makotoworld.github.io/tags/life/" style="font-size: 10px;">life</a> <a href="/makotoworld.github.io/tags/my/" style="font-size: 20px;">my</a> <a href="/makotoworld.github.io/tags/photo/" style="font-size: 10px;">photo</a> <a href="/makotoworld.github.io/tags/python/" style="font-size: 10px;">python</a> <a href="/makotoworld.github.io/tags/raspberrypi/" style="font-size: 10px;">raspberrypi</a> <a href="/makotoworld.github.io/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" style="font-size: 10px;">楽天モバイル</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/makotoworld.github.io/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/makotoworld.github.io/archives/2020/03/">March 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/makotoworld.github.io/2020/04/13/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB%E3%81%AEUN-LIMIT%E3%81%AB%E4%B9%97%E3%82%8A%E6%8F%9B%E3%81%88%E3%81%A6%E3%81%BF%E3%81%9F/">楽天モバイルのUN-LIMITに乗り換えてみた</a>
+          </li>
+        
+          <li>
+            <a href="/makotoworld.github.io/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/">Dockerfile を GCP の Cloud Run にデプロイする</a>
+          </li>
+        
+          <li>
+            <a href="/makotoworld.github.io/2020/04/04/2020%E5%B9%B4%E6%98%A5%E3%81%8B%E3%82%89%E5%B8%9D%E4%BA%AC%E5%A4%A7%E5%AD%A6%E9%80%9A%E4%BF%A1%E6%95%99%E8%82%B2%E8%AA%B2%E7%A8%8B%E3%82%92%E5%A7%8B%E3%82%81%E3%81%BE%E3%81%99/">2020年春から帝京大学通信教育課程を始めます</a>
+          </li>
+        
+          <li>
+            <a href="/makotoworld.github.io/2020/04/03/%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%E5%86%99%E7%9C%9F%E3%81%ABExif%E6%83%85%E5%A0%B1%E3%82%92%E5%9F%8B%E3%82%81%E8%BE%BC%E3%82%80/">フィルム写真にExif情報を埋め込む</a>
+          </li>
+        
+          <li>
+            <a href="/makotoworld.github.io/2020/03/30/MicroSD%E3%81%A7%E3%83%A9%E3%82%BA%E3%83%91%E3%82%A4%E3%81%AEOS%E3%82%92%E6%BA%96%E5%82%99%E3%81%99%E3%82%8B/">MicroSDでラズパイのOSを準備する</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Makoto Nozaki<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/makotoworld.github.io/" class="mobile-nav-link">Home</a>
+  
+    <a href="/makotoworld.github.io/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/makotoworld.github.io/fancybox/jquery.fancybox.css">
+
+  
+<script src="/makotoworld.github.io/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/makotoworld.github.io/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
