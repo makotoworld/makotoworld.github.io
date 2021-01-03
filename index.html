@@ -137,7 +137,15 @@ ga('send', 'pageview');
 <li>「Enter the six-digit code from the application」にペーストし、「Enable」をクリック</li>
 </ul>
 </li>
+<li>hexo の _config.yaml の deploy 部分の下に token の行を加える<pre><code>deploy:
+  type: git
+  repo: https://github.com/makotoworld/makotoworld.github.io
+  branch: master
+  token: $GITHUB_TOKEN</code></pre></li>
+<li>github.com に Personal access tokens を設定し、アクセストークンをコピーする</li>
+<li>取得したアクセストークンを $GITHUB_TOKEN 変数に設定する</li>
 </ul>
+<p>これで、<code>hexo d -g</code> するとパスワードを求められるので、それにしたがって入力するとデプロイができる</p>
 
       
     </div>
