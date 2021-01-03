@@ -80,6 +80,80 @@ ga('send', 'pageview');
       <div class="outer">
         <section id="main">
   
+    <article id="post-github-comを1passwordで2ファクタ認証にする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2021-01-03T07:17:55.000Z" itemprop="datePublished">2021-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/">github.comを1passwordで2ファクタ認証にする</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexoをデプロイした際に、github.com からメールが届いた。</p>
+<p>2021年8月13日からトークン認証が必要になるってメールが来た。</p>
+<p><a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/" target="_blank" rel="noopener">Token authentication requirements for Git operations - The GitHub Blog</a></p>
+<p>まだ2ファクタ認証にしてなかったので、手順をメモ。</p>
+<ul>
+<li>github.com の setting を開く<br><img src="https://i.imgur.com/M0VoGVb.png" alt="image"></li>
+<li>アカウントのセキュリティを開く<ul>
+<li><a href="https://github.com/settings/security" target="_blank" rel="noopener">Account security</a></li>
+</ul>
+</li>
+<li>Two-factor authentication 画面が開く<br><img src="https://i.imgur.com/kKfiWgc.png" alt="image"><ul>
+<li>「Enable two-factor authntication」をクリック</li>
+</ul>
+</li>
+<li>「Set up using an app」をクリック<br><img src="https://i.imgur.com/K7B9UbZ.png" alt="image"></li>
+<li><ol>
+<li>Recovery codes で回復コードを保存する<br><img src="https://i.imgur.com/lIhcmpE.png" alt="image"></li>
+</ol>
+<ul>
+<li>保存したら、「Next」へクリック</li>
+</ul>
+</li>
+<li><ol start="2">
+<li>Scan this barcode with your app. でQRコードをコピーし、1passwordで保管する<br><img src="https://i.imgur.com/2cQFmEg.png" alt="image"></li>
+</ol>
+</li>
+<li>1Passwordを開く<ul>
+<li>github.com を開き、「編集」</li>
+<li>ラベル → 新規フィールドの右側にあるセレクトボックスを「ワンタイムパスワード」に変更</li>
+<li>QRアイコンをクリックし、QRコードをペースト</li>
+<li>保存する</li>
+<li>ワンタイムパスワードをコピー</li>
+<li>「Enter the six-digit code from the application」にペーストし、「Enable」をクリック</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.nzk.me/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/" data-id="ckjgtx9ja000040ab74zdd748" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/1password/" rel="tag">1password</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2020年の振り返り、2021年の抱負" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/01/03/2020%E5%B9%B4%E3%81%AE%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8A%E3%80%812021%E5%B9%B4%E3%81%AE%E6%8A%B1%E8%B2%A0/" class="article-date">
@@ -257,70 +331,11 @@ ga('send', 'pageview');
 
 
   
-    <article id="post-DockerfileをGCPのCloud-Runにデプロイする" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/" class="article-date">
-  <time datetime="2020-04-11T13:05:37.000Z" itemprop="datePublished">2020-04-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/">Dockerfile を GCP の Cloud Run にデプロイする</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="はじめに"><a href="#はじめに" class="headerlink" title="はじめに"></a>はじめに</h1><p>Dockerfile を作って Google Cloud Run にデプロイする手順のメモ。<br>今まで、Docker を使ってコンテナを作っておけば、基本どの環境でもアプリを立ち上げられる。<br>Mac で作ったアプリを、 Windows または Ubuntu 上で動かすにしても、必要なプログラミング言語やデータベース、ライブラリ等の導入が先に必要で、そこで行き詰まったりする。<br>OS が異なると、アプリを動かすために必要なソフトウェア類の導入も一筋縄でいかないケースが多い。<br>それが Dockerfile にアプリを動かす前提条件を書いておけば、その通りに事前に導入してくれるので楽。<br>ここの例は Python のフレームワークである、 Flask を例にして最終的に Cloud Run にデプロイするまでの流れをまとめたい。</p>
-<h1 id="Flask-アプリと-Dockerfile-を書く"><a href="#Flask-アプリと-Dockerfile-を書く" class="headerlink" title="Flask アプリと Dockerfile を書く"></a>Flask アプリと Dockerfile を書く</h1><h2 id="Flask-app-py"><a href="#Flask-app-py" class="headerlink" title="Flask(app.py)"></a>Flask(app.py)</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">from flask import Flask</span><br><span class="line">app &#x3D; Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;&#39;)</span><br><span class="line">def hello():</span><br><span class="line">    return &quot;Hello, Flask!&quot;</span><br><span class="line"></span><br><span class="line">@app.route(&#39;&#x2F;docker&#39;)</span><br><span class="line">def hello2():</span><br><span class="line">    return &quot;Hello, Docker!&quot;</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
-
-<h2 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">##PythonのDockerイメージを指定</span><br><span class="line">FROM python</span><br><span class="line"></span><br><span class="line"># Copy local code to the container image.</span><br><span class="line">ENV APP_HOME &#x2F;app</span><br><span class="line">WORKDIR $APP_HOME</span><br><span class="line">COPY . .</span><br><span class="line"></span><br><span class="line">#ライブラリインストール</span><br><span class="line">RUN pip install flask</span><br><span class="line"></span><br><span class="line">#コマンド実行</span><br><span class="line">CMD python app.py</span><br></pre></td></tr></table></figure>
-
-<h1 id="ローカル-Docker-でビルドしてみる"><a href="#ローカル-Docker-でビルドしてみる" class="headerlink" title="ローカル Docker でビルドしてみる"></a>ローカル Docker でビルドしてみる</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; docker build -t hello_flask .</span><br></pre></td></tr></table></figure>
-<p>最後の「.」を忘れずに（これはDockerfileパスの指定）</p>
-<h2 id="出力結果"><a href="#出力結果" class="headerlink" title="出力結果"></a>出力結果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Sending build context to Docker daemon  3.584kB</span><br><span class="line">Step 1&#x2F;6 : FROM python</span><br><span class="line"> ---&gt; f88b2f81f83a</span><br><span class="line">Step 2&#x2F;6 : ENV APP_HOME &#x2F;app</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; e653346a0ee5</span><br><span class="line">Step 3&#x2F;6 : WORKDIR $APP_HOME</span><br><span class="line"> ---&gt; Using cache</span><br><span class="line"> ---&gt; 4bd2068dd7c1</span><br><span class="line">Step 4&#x2F;6 : COPY . .</span><br><span class="line"> ---&gt; 7904c315ded5</span><br><span class="line">Step 5&#x2F;6 : RUN pip install flask</span><br><span class="line"> ---&gt; Running in 4430fd9333bf</span><br><span class="line">Collecting flask</span><br><span class="line">  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)</span><br><span class="line">Collecting itsdangerous&gt;&#x3D;0.24</span><br><span class="line">  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)</span><br><span class="line">Collecting Jinja2&gt;&#x3D;2.10.1</span><br><span class="line">  Downloading Jinja2-2.11.1-py2.py3-none-any.whl (126 kB)</span><br><span class="line">Collecting Werkzeug&gt;&#x3D;0.15</span><br><span class="line">  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)</span><br><span class="line">Collecting click&gt;&#x3D;5.1</span><br><span class="line">  Downloading click-7.1.1-py2.py3-none-any.whl (82 kB)</span><br><span class="line">Collecting MarkupSafe&gt;&#x3D;0.23</span><br><span class="line">  Downloading MarkupSafe-1.1.1-cp38-cp38-manylinux1_x86_64.whl (32 kB)</span><br><span class="line">Installing collected packages: itsdangerous, MarkupSafe, Jinja2, Werkzeug, click, flask</span><br><span class="line">Successfully installed Jinja2-2.11.1 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.1 flask-1.1.2 itsdangerous-1.1.0</span><br><span class="line">Removing intermediate container 4430fd9333bf</span><br><span class="line"> ---&gt; 50b8d018f549</span><br><span class="line">Step 6&#x2F;6 : CMD python app.py</span><br><span class="line"> ---&gt; Running in b05753ebc70f</span><br><span class="line">Removing intermediate container b05753ebc70f</span><br><span class="line"> ---&gt; 3399d6d70f76</span><br><span class="line">Successfully built 3399d6d70f76</span><br><span class="line">Successfully tagged hello_flask:latest</span><br></pre></td></tr></table></figure>
-
-<h1 id="作成したイメージをもとにコンテナを立ち上げ"><a href="#作成したイメージをもとにコンテナを立ち上げ" class="headerlink" title="作成したイメージをもとにコンテナを立ち上げ"></a>作成したイメージをもとにコンテナを立ち上げ</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 5000:5000 hello_flask</span><br><span class="line"> * Serving Flask app &quot;app&quot; (lazy loading)</span><br><span class="line"> * Environment: production</span><br><span class="line">   WARNING: This is a development server. Do not use it in a production deployment.</span><br><span class="line">   Use a production WSGI server instead.</span><br><span class="line"> * Debug mode: on</span><br><span class="line"> * Running on http:&#x2F;&#x2F;0.0.0.0:5000&#x2F; (Press CTRL+C to quit)</span><br><span class="line"> * Restarting with stat</span><br><span class="line"> * Debugger is active!</span><br><span class="line"> * Debugger PIN: 138-899-674</span><br><span class="line">172.17.0.1 - - [13&#x2F;Apr&#x2F;2020 14:04:43] &quot;GET &#x2F; HTTP&#x2F;1.1&quot; 200 -</span><br><span class="line">172.17.0.1 - - [13&#x2F;Apr&#x2F;2020 14:04:51] &quot;GET &#x2F;docker HTTP&#x2F;1.1&quot; 200 -</span><br></pre></td></tr></table></figure>
-<p>こんな感じで立ち上げ、<a href="http://0.0.0.0:5000/" target="_blank" rel="noopener">http://0.0.0.0:5000/</a> にアクセスすると、「Hello, Flask!」と表示できるのを確認できます。<br>ローカルPCのDockerで動作確認ができたら、GCPのContainer Registryにイメージをアップしてみます。</p>
-<h1 id="Container-Registry-へ-Docker-コンテナをビルド"><a href="#Container-Registry-へ-Docker-コンテナをビルド" class="headerlink" title="Container Registry へ Docker コンテナをビルド"></a>Container Registry へ Docker コンテナをビルド</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud builds submit --tag gcr.io&#x2F;[PROJECT_ID]&#x2F;[IMAGE_NAME]</span><br></pre></td></tr></table></figure>
-
-<h1 id="Cloud-Run-へデプロイ"><a href="#Cloud-Run-へデプロイ" class="headerlink" title="Cloud Run へデプロイ"></a>Cloud Run へデプロイ</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta run deploy --image gcr.io&#x2F;[PROJECT_ID]&#x2F;[IMAGE_NAME]</span><br></pre></td></tr></table></figure>
-<p>下記のように、引数指定で入れておくと、対話せずそのままデプロイまでいけます。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcloud beta run deploy appname --image gcr.io&#x2F;[PROJECT_ID]&#x2F;[appname] --platform&#x3D;managed --region&#x3D;asia-northeast1</span><br></pre></td></tr></table></figure>
-<p>詳細はGCPのマニュアルを参照。</p>
-<ul>
-<li><a href="https://cloud.google.com/sdk/gcloud/reference/beta/run" target="_blank" rel="noopener">gcloud beta run  |  Cloud SDK のドキュメント  |  Google Cloud</a></li>
-<li><a href="https://www.apps-gcp.com/cloud-run-full-managed-basic-1/" target="_blank" rel="noopener">サーバーレスをコンテナで！Cloud Runで必ず抑えておきたい5つのことを検証してみた〜フルマネージド基礎編① | apps-gcp.com</a><br>これでCloud Run上でアプリが稼働できるようになります。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://blog.nzk.me/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/" data-id="ck8utt1xt0000ouabbxtba53h" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCP/" rel="tag">GCP</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -334,7 +349,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Competitive-programming/" rel="tag">Competitive programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCP/" rel="tag">GCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atcoder/" rel="tag">atcoder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exiftool/" rel="tag">exiftool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/" rel="tag">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my/" rel="tag">my</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/photo/" rel="tag">photo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberrypi/" rel="tag">raspberrypi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" rel="tag">楽天モバイル</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%AE%E6%A8%99/" rel="tag">目標</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/1password/" rel="tag">1password</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/" rel="tag">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Competitive-programming/" rel="tag">Competitive programming</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GCP/" rel="tag">GCP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atcoder/" rel="tag">atcoder</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/exiftool/" rel="tag">exiftool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/idea/" rel="tag">idea</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/life/" rel="tag">life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/my/" rel="tag">my</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/photo/" rel="tag">photo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/raspberrypi/" rel="tag">raspberrypi</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" rel="tag">楽天モバイル</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%AE%E6%A8%99/" rel="tag">目標</a></li></ul>
     </div>
   </div>
 
@@ -344,7 +359,7 @@ ga('send', 'pageview');
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Competitive-programming/" style="font-size: 10px;">Competitive programming</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/GCP/" style="font-size: 10px;">GCP</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/atcoder/" style="font-size: 10px;">atcoder</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/exiftool/" style="font-size: 10px;">exiftool</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/my/" style="font-size: 20px;">my</a> <a href="/tags/photo/" style="font-size: 10px;">photo</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raspberrypi/" style="font-size: 10px;">raspberrypi</a> <a href="/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" style="font-size: 10px;">楽天モバイル</a> <a href="/tags/%E7%9B%AE%E6%A8%99/" style="font-size: 10px;">目標</a>
+      <a href="/tags/1password/" style="font-size: 10px;">1password</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Competitive-programming/" style="font-size: 10px;">Competitive programming</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/GCP/" style="font-size: 10px;">GCP</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/atcoder/" style="font-size: 10px;">atcoder</a> <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/exiftool/" style="font-size: 10px;">exiftool</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/idea/" style="font-size: 10px;">idea</a> <a href="/tags/life/" style="font-size: 10px;">life</a> <a href="/tags/my/" style="font-size: 20px;">my</a> <a href="/tags/photo/" style="font-size: 10px;">photo</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/raspberrypi/" style="font-size: 10px;">raspberrypi</a> <a href="/tags/%E6%A5%BD%E5%A4%A9%E3%83%A2%E3%83%90%E3%82%A4%E3%83%AB/" style="font-size: 10px;">楽天モバイル</a> <a href="/tags/%E7%9B%AE%E6%A8%99/" style="font-size: 10px;">目標</a>
     </div>
   </div>
 
@@ -366,6 +381,10 @@ ga('send', 'pageview');
       <ul>
         
           <li>
+            <a href="/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/">github.comを1passwordで2ファクタ認証にする</a>
+          </li>
+        
+          <li>
             <a href="/2021/01/03/2020%E5%B9%B4%E3%81%AE%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8A%E3%80%812021%E5%B9%B4%E3%81%AE%E6%8A%B1%E8%B2%A0/">2020年の振り返り、2021年の抱負</a>
           </li>
         
@@ -379,10 +398,6 @@ ga('send', 'pageview');
         
           <li>
             <a href="/2020/04/04/2020%E5%B9%B4%E6%98%A5%E3%81%8B%E3%82%89%E5%B8%9D%E4%BA%AC%E5%A4%A7%E5%AD%A6%E9%80%9A%E4%BF%A1%E6%95%99%E8%82%B2%E8%AA%B2%E7%A8%8B%E3%82%92%E5%A7%8B%E3%82%81%E3%81%BE%E3%81%99/">2020年春から帝京大学通信教育課程を始めます</a>
-          </li>
-        
-          <li>
-            <a href="/2020/04/03/%E3%83%95%E3%82%A3%E3%83%AB%E3%83%A0%E5%86%99%E7%9C%9F%E3%81%ABExif%E6%83%85%E5%A0%B1%E3%82%92%E5%9F%8B%E3%82%81%E8%BE%BC%E3%82%80/">フィルム写真にExif情報を埋め込む</a>
           </li>
         
       </ul>

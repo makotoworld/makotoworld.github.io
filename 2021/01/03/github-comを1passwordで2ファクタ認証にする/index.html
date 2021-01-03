@@ -18,14 +18,26 @@ ga('send', 'pageview');
 
 
   
-  <title>Tag: GCP | コードを舐める日々</title>
+  <title>github.comを1passwordで2ファクタ認証にする | コードを舐める日々</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="コードを舐める日々">
-<meta property="og:url" content="https://blog.nzk.me/tags/GCP/index.html">
+  <meta name="description" content="hexoをデプロイした際に、github.com からメールが届いた。 2021年8月13日からトークン認証が必要になるってメールが来た。 Token authentication requirements for Git operations - The GitHub Blog まだ2ファクタ認証にしてなかったので、手順をメモ。  github.com の setting を開く アカウントのセ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="github.comを1passwordで2ファクタ認証にする">
+<meta property="og:url" content="https://blog.nzk.me/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/index.html">
 <meta property="og:site_name" content="コードを舐める日々">
+<meta property="og:description" content="hexoをデプロイした際に、github.com からメールが届いた。 2021年8月13日からトークン認証が必要になるってメールが来た。 Token authentication requirements for Git operations - The GitHub Blog まだ2ファクタ認証にしてなかったので、手順をメモ。  github.com の setting を開く アカウントのセ">
+<meta property="og:image" content="https://i.imgur.com/M0VoGVb.png">
+<meta property="og:image" content="https://i.imgur.com/kKfiWgc.png">
+<meta property="og:image" content="https://i.imgur.com/K7B9UbZ.png">
+<meta property="og:image" content="https://i.imgur.com/lIhcmpE.png">
+<meta property="og:image" content="https://i.imgur.com/2cQFmEg.png">
+<meta property="article:published_time" content="2021-01-03T07:17:55.000Z">
+<meta property="article:modified_time" content="2021-01-03T08:09:10.681Z">
 <meta property="article:author" content="Makoto Nozaki">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="1password">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/M0VoGVb.png">
   
     <link rel="alternate" href="/atom.xml" title="コードを舐める日々" type="application/atom+xml">
   
@@ -78,40 +90,89 @@ ga('send', 'pageview');
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/" class="archive-article-date">
-  <time datetime="2020-04-11T13:05:37.000Z" itemprop="datePublished">Apr 11</time>
+        <section id="main"><article id="post-github-comを1passwordで2ファクタ認証にする" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/" class="article-date">
+  <time datetime="2021-01-03T07:17:55.000Z" itemprop="datePublished">2021-01-03</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/04/11/Dockerfile%E3%82%92GCP%E3%81%AECloud-Run%E3%81%AB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E3%81%99%E3%82%8B/">Dockerfile を GCP の Cloud Run にデプロイする</a>
+    <h1 class="article-title" itemprop="name">
+      github.comを1passwordで2ファクタ認証にする
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>hexoをデプロイした際に、github.com からメールが届いた。</p>
+<p>2021年8月13日からトークン認証が必要になるってメールが来た。</p>
+<p><a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/" target="_blank" rel="noopener">Token authentication requirements for Git operations - The GitHub Blog</a></p>
+<p>まだ2ファクタ認証にしてなかったので、手順をメモ。</p>
+<ul>
+<li>github.com の setting を開く<br><img src="https://i.imgur.com/M0VoGVb.png" alt="image"></li>
+<li>アカウントのセキュリティを開く<ul>
+<li><a href="https://github.com/settings/security" target="_blank" rel="noopener">Account security</a></li>
+</ul>
+</li>
+<li>Two-factor authentication 画面が開く<br><img src="https://i.imgur.com/kKfiWgc.png" alt="image"><ul>
+<li>「Enable two-factor authntication」をクリック</li>
+</ul>
+</li>
+<li>「Set up using an app」をクリック<br><img src="https://i.imgur.com/K7B9UbZ.png" alt="image"></li>
+<li><ol>
+<li>Recovery codes で回復コードを保存する<br><img src="https://i.imgur.com/lIhcmpE.png" alt="image"></li>
+</ol>
+<ul>
+<li>保存したら、「Next」へクリック</li>
+</ul>
+</li>
+<li><ol start="2">
+<li>Scan this barcode with your app. でQRコードをコピーし、1passwordで保管する<br><img src="https://i.imgur.com/2cQFmEg.png" alt="image"></li>
+</ol>
+</li>
+<li>1Passwordを開く<ul>
+<li>github.com を開き、「編集」</li>
+<li>ラベル → 新規フィールドの右側にあるセレクトボックスを「ワンタイムパスワード」に変更</li>
+<li>QRアイコンをクリックし、QRコードをペースト</li>
+<li>保存する</li>
+<li>ワンタイムパスワードをコピー</li>
+<li>「Enter the six-digit code from the application」にペーストし、「Enable」をクリック</li>
+</ul>
+</li>
+</ul>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.nzk.me/2021/01/03/github-com%E3%82%921password%E3%81%A72%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E8%AA%8D%E8%A8%BC%E3%81%AB%E3%81%99%E3%82%8B/" data-id="ckjgtx9ja000040ab74zdd748" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/1password/" rel="tag">1password</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2021/01/03/2020%E5%B9%B4%E3%81%AE%E6%8C%AF%E3%82%8A%E8%BF%94%E3%82%8A%E3%80%812021%E5%B9%B4%E3%81%AE%E6%8A%B1%E8%B2%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2020年の振り返り、2021年の抱負</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
